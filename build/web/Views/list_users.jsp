@@ -4,11 +4,21 @@
     Author     : Mariana
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    ArrayList users = new ArrayList();
-    users = (ArrayList)request.getAttribute("list");
+    //ArrayList users = new ArrayList();
+    //users = (ArrayList)request.getAttribute("list");
+    
+    ResultSet users;
+    users = (ResultSet)request.getAttribute("list");
+    while(users.next()){
+        out.print("datos: " + users.getString("name"));
+        out.print("datos: " + users.getString("email"));
+        out.print("datos: " + users.getString("phonenumber"));
+        out.print("datos: " + users.getString("userType"));
+    }
     
 %>
 <!DOCTYPE html>
@@ -30,7 +40,7 @@
                         <th>Email</th>
                         <th>Telefono</th>
                         <th>Tipo de Usuario</th>
-                <%
+                <%--
                     for(int i=0; i < users.size() ; i++){
                         if(i%4==0){
                         %>
@@ -47,7 +57,7 @@
                         </td>
                 <%    
                         }}
-                %>
+                --%>
                 </table>
             </div>
         </div>

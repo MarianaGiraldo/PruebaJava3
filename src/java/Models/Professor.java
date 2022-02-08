@@ -10,7 +10,7 @@ package Models;
  *
  * @author Mariana
  */
-public class Professor extends Person {
+public class Professor extends User {
     private int salary;
     
     public Professor(){

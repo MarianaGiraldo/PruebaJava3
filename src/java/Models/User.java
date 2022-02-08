@@ -6,26 +6,29 @@
 
 package Models;
 
+import static Models.Dao.conecta;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.Statement;
+//import java.util.ArrayList;
 
 /**
  *
  * @author Mariana
  */
-public class Person {
+public class User {
     private String name;
     private String phoneNumber;
     private String email;
     private String userType;
 
-    public Person(){
+    public User(){
         
     }
 
-    public Person(String name, String phoneNumber, String email, String userType) {
+    public User(String name, String phoneNumber, String email, String userType) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -118,13 +121,19 @@ public class Person {
         ResultSet rs = null;
         PreparedStatement consulta;
         try{
+            if(Dao.conecta() != null){
+                Connection con = conecta();
+                consulta = con.prepareStatement(sql);
+                rs = consulta.executeQuery();
+            }
             
-        }catch(Exception ex){
-            
+        }catch(SQLException ex){
+            System.out.print(ex.getMessage());
         }
         
-        return null;
+        return rs;
         
     }
+    
     
 }

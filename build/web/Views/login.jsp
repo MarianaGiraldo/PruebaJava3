@@ -17,7 +17,9 @@
         <div class="container mt-4">
             <div class="m-auto w-75 p-3 bg-success bg-opacity-25 rounded">
                 <h1>Login</h1>
-
+                <%
+                    
+                %>
                 <form name="form_login" action="../Controllers/login_controller.jsp" method="GET" class="row p-3">
                       <div class="mb-3 row">
                         <label for="txtEmail" class="col-sm-2 col-form-label">Email</label>

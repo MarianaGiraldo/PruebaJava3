@@ -12,19 +12,19 @@ import java.util.ArrayList;
  *
  * @author maria
  */
-public class Parking {
+public class CarPark {
     private String number;
     private String place;
     private Boolean occupied;
     //private Person owner;
     private String ownersEmail;
 
-    public Parking() {
+    public CarPark() {
     }
 
     
     
-    public Parking(String number, String place, Boolean occupied, String ownersEmail) {
+    public CarPark(String number, String place, Boolean occupied, String ownersEmail) {
         this.number = number;
         this.place = place;
         this.occupied = occupied;
@@ -126,7 +126,7 @@ public class Parking {
     }
     
     public ArrayList listParking(){
-        ArrayList parking = new <Parking>ArrayList();
+        ArrayList parking = new <CarPark>ArrayList();
         parking.add(this);
         return parking;
     }

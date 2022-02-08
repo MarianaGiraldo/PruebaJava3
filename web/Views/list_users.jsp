@@ -13,6 +13,12 @@
     
     ResultSet users;
     users = (ResultSet)request.getAttribute("list");
+    while(users.next()){
+        out.print("datos: " + users.getString("name"));
+        out.print("datos: " + users.getString("email"));
+        out.print("datos: " + users.getString("phonenumber"));
+        out.print("datos: " + users.getString("userType"));
+    }
     
 %>
 <!DOCTYPE html>

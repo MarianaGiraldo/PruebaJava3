@@ -4,6 +4,7 @@
     Author     : Mariana
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Professor"%>
 <%@page import="Models.Student" %>
@@ -13,7 +14,8 @@
     String dato;
     Student s = new Student();
     Professor p = new Professor();
-    ArrayList listUser = new ArrayList();
+    //ArrayList listUser = new ArrayList();
+    ResultSet listUser;
 %>
 <% 
     String btnCrear = request.getParameter("btnCrear");
@@ -26,12 +28,13 @@
             dato = s.insertStudent(); 
             s = new Student(
                     request.getParameter("txtCodEstudiante"), 
-                    request.getParameter("txtNotaPromedio"), 
+                    Float.parseFloat(request.getParameter("txtNotaPromedio")), 
                     request.getParameter("txtNombre"), 
                     request.getParameter("txtTelefono"),  
                     request.getParameter("txtCorreo"),
                     "Estudiante"
              );
+            s.CreateStudent(s);
         }else{
             dato = p.insertProfessor();
             p = new Professor(

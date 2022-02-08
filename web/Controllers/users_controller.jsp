@@ -28,12 +28,13 @@
             dato = s.insertStudent(); 
             s = new Student(
                     request.getParameter("txtCodEstudiante"), 
-                    request.getParameter("txtNotaPromedio"), 
+                    Float.parseFloat(request.getParameter("txtNotaPromedio")), 
                     request.getParameter("txtNombre"), 
                     request.getParameter("txtTelefono"),  
                     request.getParameter("txtCorreo"),
                     "Estudiante"
              );
+            s.CreateStudent(s);
         }else{
             dato = p.insertProfessor();
             p = new Professor(

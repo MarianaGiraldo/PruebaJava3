@@ -6,19 +6,25 @@
 
 package Models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 
 /**
  *
  * @author maria
  */
-public class Student extends Person {
+public class Student extends User {
     private String studentNumber;
-    private String averageMark;
+    private Float averageMark;
 
     public Student() {
     }
 
-    public Student(String studentNumber, String averageMark, String name, String phoneNumber, String email, String userType) {
+    public Student(String studentNumber, Float averageMark, String name, String phoneNumber, String email, String userType) {
         super(name, phoneNumber, email, userType);
         this.studentNumber = studentNumber;
         this.averageMark = averageMark;
@@ -42,14 +48,14 @@ public class Student extends Person {
     /**
      * @return the averageMark
      */
-    public String getAverageMark() {
+    public Float getAverageMark() {
         return averageMark;
     }
 
     /**
      * @param averageMark the averageMark to set
      */
-    public void setAverageMark(String averageMark) {
+    public void setAverageMark(Float averageMark) {
         this.averageMark = averageMark;
     }
     
@@ -80,9 +86,46 @@ public class Student extends Person {
                 + "<br/> <b>Codigo Estudiante:</b> "
                 + this.getStudentNumber()
                 + "<br/> <b>Nota Promedio:</b> "
-                + this.getAverageMark();
+                + Float.toString(this.getAverageMark());
         
         return cadena;
+        
+    }
+    
+    public boolean CreateStudent(Student user) throws SQLException{
+       // System.out.println("Entró a la función Create");
+       try(Connection conn = Dao.conecta()){
+           //System.out.println("Entró a la conexión");
+           String query = "INSERT INTO users (`Name`, `PhoneNumber`, `Email`, `UserType`) VALUES (?, ?, ?)";
+           PreparedStatement statementUser = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+           statementUser.setString(1, user.getName());
+           statementUser.setString(2, user.getPhoneNumber());
+           statementUser.setString(3, user.getEmail());
+           statementUser.setString(4, user.getUserType());
+           
+           int rowsInserted = statementUser.executeUpdate();
+           if (rowsInserted > 0){
+               //System.out.println("Statement Pet ejecutado");
+               ResultSet generatedKeys= statementUser.getGeneratedKeys();
+               if(generatedKeys.next()){
+                   int idUser = generatedKeys.getInt(1);
+                   query = "Insert into students (`studentNumber`, `averageMark`, user_id) "
+                           + " VALUES (?, ?, ?)";
+                   PreparedStatement statementStudent = conn.prepareStatement(query);
+                   statementStudent.setString(1, user.getStudentNumber());
+                   statementStudent.setFloat(2, user.getAverageMark());
+                   statementStudent.setInt(3, idUser);
+                   rowsInserted = statementStudent.executeUpdate();
+                   if (rowsInserted > 0){
+                       return true;
+                   }
+               }
+           }
+           return false;
+       }catch (SQLException e) {
+           System.err.println("Error: "+ e.getMessage());
+           return false;
+       }
         
     }
     

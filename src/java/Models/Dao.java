@@ -7,6 +7,7 @@ package Models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -20,15 +21,18 @@ public class Dao {
             Class.forName("com.mysql.jdbc.Driver");
             String user = "root";
             String password = "";
-            String url = "jdbc:mysql://localhost:3306/petmanagerdb";
-            //conecta() = (Connection)DriverManager.getConnection(url, user, password);
+            String url = "jdbc:mysql://localhost:3306/pruebaparkingdb";
+            conecta = DriverManager.getConnection(url, user, password);
+        }catch(ClassNotFoundException | SQLException ex){
+            System.out.print(ex.getMessage());
+        }catch(Exception ex){
+            System.out.print(ex.getMessage());
         }
-        catch(ClassNotFoundException ex){
-            
+        finally{
+            return conecta;
         }
         
-        
-         return conecta;
+         
     }
     
 }

@@ -14,7 +14,7 @@
 <div class="col-md-6">
     <label for="txtTelefono" class="form-label">Telefono</label>
     <input type="text" class="form-control" name="txtTelefono" id="txtTelefono" 
-       value=""/>
+       value=""/> <br/>
 </div>
 
 <div class="col-md-6">

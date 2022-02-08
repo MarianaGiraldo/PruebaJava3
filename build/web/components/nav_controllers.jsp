@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <nav class="navbar navbar-expand-lg navbar-light bg-warning bg-opacity-50">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Java WEB</a>
+      <a class="navbar-brand" href="../">Java WEB</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
