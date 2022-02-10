@@ -4,6 +4,8 @@
     Author     : Mariana
 --%>
 
+<%@page import="java.sql.Connection"%>
+<%@page import="Models.Dao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
     <head>
@@ -17,6 +19,16 @@
         <div class="container mt-4">
             <div class="mx-auto w-75 p-3 bg-success bg-opacity-25 rounded">
                 <h1>Admin Profesor</h1>
+                <%
+                    try {
+                        if (Dao.conecta() != null) {
+                            Connection con = Dao.conecta();
+                            out.print("Conexion a Base de datos exitosa.");
+                        }
+                    } catch (Exception ex) {
+                        out.print("Conexion a Base de datos fallida: " + ex.getMessage());
+                    }
+                %>
 
                 <form name="form_profesor" action="../Controllers/users_controller.jsp" method="GET" class="row p-3">
                     <%@include file="../components/form_persona.jsp" %>

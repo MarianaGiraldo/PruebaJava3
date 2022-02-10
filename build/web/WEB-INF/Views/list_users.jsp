@@ -13,12 +13,13 @@
     
     ResultSet users;
     users = (ResultSet)request.getAttribute("list");
-    while(users.next()){
-        out.print("datos: " + users.getString("name"));
-        out.print("datos: " + users.getString("email"));
-        out.print("datos: " + users.getString("phonenumber"));
-        out.print("datos: " + users.getString("userType"));
-    }
+    
+    //while(users.next()){
+      //  out.print("datos: " + users.getString("name"));
+      //  out.print("datos: " + users.getString("email"));
+      //  out.print("datos: " + users.getString("phonenumber"));
+      //  out.print("datos: " + users.getString("userType"));
+    //}
     
 %>
 <!DOCTYPE html>
@@ -40,24 +41,24 @@
                         <th>Email</th>
                         <th>Telefono</th>
                         <th>Tipo de Usuario</th>
-                <%--
-                    for(int i=0; i < users.size() ; i++){
-                        if(i%4==0){
-                        %>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <%= users.get(i)%>
-                                </td>
-                        <%
-                        } else{ 
-                        %>
+                    </tr>
+                    <% while(users.next()){
+                    %>
+                    <tr>
                         <td>
-                            <%= users.get(i)%>
+                            <%= users.getString("name")%>
                         </td>
-                <%    
-                        }}
-                --%>
+                        <td>
+                            <%= users.getString("email")%>
+                        </td>
+                        <td>
+                            <%= users.getString("phonenumber")%>
+                        </td>
+                        <td>
+                            <%= users.getString("userType")%>
+                        </td>
+                    </tr>
+                    <% } %>
                 </table>
             </div>
         </div>

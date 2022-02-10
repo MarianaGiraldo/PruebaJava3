@@ -6,6 +6,12 @@
 
 package Models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author Mariana
@@ -50,7 +56,8 @@ public class Professor extends User {
         return "El usuario de profesor ha sido eeliminado exitosamente";
     }
     
-    public String insertProfessor(){
+    public String insertProfessor() throws SQLException{
+        this.CreateProfessor(this);
        return "El usuario de profesor se ha ingresado correctamente"; 
     }
     
@@ -65,5 +72,41 @@ public class Professor extends User {
                 + this.getSalary();
         
         return cadena;
+    }
+    
+    public boolean CreateProfessor(Professor user) throws SQLException{
+       // System.out.println("Entró a la función Create");
+       try(Connection conn = Dao.conecta()){
+           //System.out.println("Entró a la conexión");
+           String query = "INSERT INTO users (`Name`, `PhoneNumber`, `Email`, `UserType`) VALUES (?, ?, ?, ?)";
+           PreparedStatement statementUser = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+           statementUser.setString(1, user.getName());
+           statementUser.setString(2, user.getPhoneNumber());
+           statementUser.setString(3, user.getEmail());
+           statementUser.setString(4, user.getUserType());
+           
+           int rowsInserted = statementUser.executeUpdate();
+           if (rowsInserted > 0){
+               //System.out.println("Statement Pet ejecutado");
+               ResultSet generatedKeys= statementUser.getGeneratedKeys();
+               if(generatedKeys.next()){
+                   int idUser = generatedKeys.getInt(1);
+                   query = "Insert into professors (`salary`, `user_id`) "
+                           + " VALUES (?, ?)";
+                   PreparedStatement statementStudent = conn.prepareStatement(query);
+                   statementStudent.setInt(1, user.getSalary());
+                   statementStudent.setInt(2, idUser);
+                   rowsInserted = statementStudent.executeUpdate();
+                   if (rowsInserted > 0){
+                       return true;
+                   }
+               }
+           }
+           return false;
+       }catch (SQLException e) {
+           System.err.println("Error: "+ e.getMessage());
+           return false;
+       }
+        
     }
 }

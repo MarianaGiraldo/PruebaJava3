@@ -25,7 +25,6 @@
     
     if(btnCrear != null && btnCrear.equals("Crear")){
         if(request.getParameter("txtCodEstudiante") != null){
-            dato = s.insertStudent(); 
             s = new Student(
                     request.getParameter("txtCodEstudiante"), 
                     Float.parseFloat(request.getParameter("txtNotaPromedio")), 
@@ -34,9 +33,8 @@
                     request.getParameter("txtCorreo"),
                     "Estudiante"
              );
-            s.CreateStudent(s);
+            dato = s.insertStudent(); 
         }else{
-            dato = p.insertProfessor();
             p = new Professor(
                     Integer.parseInt(request.getParameter("txtSalario")), 
                     request.getParameter("txtNombre"), 
@@ -44,6 +42,7 @@
                     request.getParameter("txtCorreo"),
                     "Profesor"
             );
+            dato = p.insertProfessor();
         }
         
     }

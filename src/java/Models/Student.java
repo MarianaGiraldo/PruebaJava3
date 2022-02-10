@@ -72,7 +72,8 @@ public class Student extends User {
         return "El usuario de estudiante ha sido eeliminado exitosamente";
     }
     
-    public String insertStudent(){
+    public String insertStudent() throws SQLException{
+        this.CreateStudent(this);
        return "El usuario de estudiante se ha ingresado correctamente"; 
     }
     
@@ -96,7 +97,7 @@ public class Student extends User {
        // System.out.println("Entró a la función Create");
        try(Connection conn = Dao.conecta()){
            //System.out.println("Entró a la conexión");
-           String query = "INSERT INTO users (`Name`, `PhoneNumber`, `Email`, `UserType`) VALUES (?, ?, ?)";
+           String query = "INSERT INTO users (`Name`, `PhoneNumber`, `Email`, `UserType`) VALUES (?, ?, ?, ?)";
            PreparedStatement statementUser = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
            statementUser.setString(1, user.getName());
            statementUser.setString(2, user.getPhoneNumber());
